@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
 const fs = require('fs')
-const Jimp = require('jimp')
+const JPEG = require('jpeg-js')
 
 /**
  * Create an attachment for insta.js
@@ -56,8 +56,8 @@ class Attachment {
      * @return {Promise<void>}
      */
     async _handleBuffer (data) {
-        const image = await Jimp.read(data)
-        this.file = await image.getBufferAsync(Jimp.MIME_JPEG)
+        const image = JPEG.encode(data, 50)
+        this.file = image.data
     }
 
     /**
